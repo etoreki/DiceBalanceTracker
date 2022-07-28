@@ -1,6 +1,7 @@
 import { DiceSet } from "./Interfaces/diceSet";
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
+import { ChromePicker } from "react-color";
 
 export function DisplaySet({
     diceSets,
@@ -13,8 +14,8 @@ export function DisplaySet({
 }): JSX.Element {
     const [edit, setEdit] = useState<boolean>(false);
     const [name, setName] = useState<string>(currentSet.name);
-    const [primColor, setPrimColor] = useState<number>(currentSet.primaryColor);
-    const [secondColor, setSecondColor] = useState<number>(
+    const [primColor, setPrimColor] = useState(currentSet.primaryColor);
+    const [secondColor, setSecondColor] = useState<string>(
         currentSet.secondaryColor
     );
     function editName(event: React.ChangeEvent<HTMLInputElement>) {
@@ -49,13 +50,14 @@ export function DisplaySet({
                         <Form.Label>Name of Dice Set: </Form.Label>
                         <Form.Control value={name} onChange={editName} />
                     </Form.Group>
+                    <ChromePicker color={primColor}></ChromePicker>
                     <Button onClick={saveChanges}>Save Changes</Button>
                     <Button onClick={cancelChanges}>Cancel</Button>
                 </div>
             ) : (
                 <div>
                     <h4>
-                        {semester.name}{" "}
+                        {currentSet.name}{" "}
                         <Button
                             className="btntransparent"
                             onClick={() => setEdit(true)}
@@ -65,7 +67,7 @@ export function DisplaySet({
                                 height="40"
                                 width="40"
                             />
-                            Edit Semester Name
+                            Edit Dice Set
                         </Button>
                     </h4>
                 </div>
