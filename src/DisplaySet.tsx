@@ -3,6 +3,9 @@ import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { SketchPicker } from "react-color";
 import "./App.css";
+import { Die } from "./Interfaces/die";
+import { DisplayDie } from "./Die";
+import { makeId } from "./createId";
 
 export function DisplaySet({
     diceSets,
@@ -43,6 +46,21 @@ export function DisplaySet({
         setPrimColor(currentSet.primaryColor);
         setSecondColor(currentSet.secondaryColor);
         setEdit(false);
+    }
+    function addDie() {
+        const newDie = {
+            id: makeId(),
+            sides: 20,
+            balanced: true,
+            rollTotals: new Array(20).fill(0)
+        };
+        const newDiceSets = diceSets.map(
+            (set: DiceSet): DiceSet =>
+                set.id === currentSet.id
+                    ? { ...set, dice: [...currentSet.dice, newDie] }
+                    : { ...set }
+        );
+        setDiceSets(newDiceSets);
     }
     return (
         <div>
@@ -108,6 +126,16 @@ export function DisplaySet({
                     </h4>
                 </div>
             )}
+            {currentSet.dice.map((die: Die) => (
+                <DisplayDie
+                    key={die.id}
+                    diceSets={diceSets}
+                    setDiceSets={setDiceSets}
+                    currentSet={currentSet}
+                    currentDie={die}
+                ></DisplayDie>
+            ))}
+            <Button onClick={addDie}>Add Die</Button>
         </div>
     );
 }
