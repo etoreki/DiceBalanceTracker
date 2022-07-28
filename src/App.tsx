@@ -69,7 +69,14 @@ if (previousData !== null) {
 function App(): JSX.Element {
     const [diceSets, setDiceSets] = useState<DiceSet[]>(data);
     function addDiceSet() {
-        const newSet = { id: makeId() };
+        const newSet = {
+            id: makeId(),
+            name: "New Set",
+            dice: [],
+            primaryColor: 0xfff,
+            secondaryColor: 0x000
+        };
+        setDiceSets([...diceSets, newSet]);
     }
     return (
         <div className="App">
@@ -78,9 +85,9 @@ function App(): JSX.Element {
                 Based on number of rolls of each face of a die determines if the
                 die is balanced.
             </p>
-            {diceSets.map((diceSet: DiceSet) =>
-                DisplaySet(diceSets, setDiceSets, diceSet.id)
-            )}
+            {diceSets.map((diceSet: DiceSet) => (
+                <DisplaySet></DisplaySet>
+            ))}
             <Button className="addSetBtn" onClick={() => addDiceSet()}>
                 New Set
             </Button>
