@@ -19,6 +19,8 @@ export function DisplaySet({
     const [secondColor, setSecondColor] = useState<string>(
         currentSet.secondaryColor
     );
+    const [primChoose, setPrimChoose] = useState<boolean>(false);
+    const [secondChoose, setSecondChoose] = useState<boolean>(false);
     function editName(event: React.ChangeEvent<HTMLInputElement>) {
         setName(event.target.value);
     }
@@ -50,19 +52,41 @@ export function DisplaySet({
                     <Form.Group className="dropdownWidth" controlId="setName">
                         <Form.Label>Name of Dice Set: </Form.Label>
                         <Form.Control value={name} onChange={editName} />
+                        {primChoose ? (
+                            <>
+                                <SketchPicker
+                                    color={primColor}
+                                    onChange={(updatedColor) =>
+                                        setPrimColor(updatedColor.hex)
+                                    }
+                                ></SketchPicker>
+                                <Button onClick={() => setPrimChoose(false)}>
+                                    Close
+                                </Button>
+                            </>
+                        ) : (
+                            <Button onClick={() => setPrimChoose(true)}>
+                                Choose Primary Color
+                            </Button>
+                        )}
+                        {secondChoose ? (
+                            <>
+                                <SketchPicker
+                                    color={secondColor}
+                                    onChange={(updatedColor) =>
+                                        setSecondColor(updatedColor.hex)
+                                    }
+                                ></SketchPicker>
+                                <Button onClick={() => setSecondChoose(false)}>
+                                    Close
+                                </Button>
+                            </>
+                        ) : (
+                            <Button onClick={() => setSecondChoose(true)}>
+                                Choose Secondary Color
+                            </Button>
+                        )}
                     </Form.Group>
-                    <SketchPicker
-                        color={primColor}
-                        onChange={(updatedColor) =>
-                            setPrimColor(updatedColor.hex)
-                        }
-                    ></SketchPicker>
-                    <SketchPicker
-                        color={secondColor}
-                        onChange={(updatedColor) =>
-                            setSecondColor(updatedColor.hex)
-                        }
-                    ></SketchPicker>
                     <Button onClick={saveChanges}>Save Changes</Button>
                     <Button onClick={cancelChanges}>Cancel</Button>
                 </div>
