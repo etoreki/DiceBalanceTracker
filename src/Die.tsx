@@ -2,6 +2,7 @@ import React from "react";
 import { DiceSet } from "./Interfaces/diceSet";
 import { Die } from "./Interfaces/die";
 import criticalValues from "./Data/criticalValues.json";
+import { Button } from "react-bootstrap";
 
 export function DisplayDie({
     diceSets,
@@ -36,6 +37,19 @@ export function DisplayDie({
             (totalRolls / currentDie.sides)
         );
     }
+    function addRoll(index: number) {
+        const newRollTotals = [...currentDie.rollTotals];
+        newRollTotals[index] = newRollTotals[index] + 1;
+        const newDice = currentSet.dice.map((die: Die) =>
+            die.id === currentDie.id ? { ...die, sides: 5 } : { ...die }
+        );
+        const newDiceSets = diceSets.map((set: DiceSet) =>
+            set.id === currentSet.id
+                ? { ...set, diceSets: newDice }
+                : { ...set }
+        );
+        setDiceSets(newDiceSets);
+    }
     return (
         <table>
             <tr>
@@ -50,16 +64,21 @@ export function DisplayDie({
             </tr>
             <tr>
                 <td>
-                    {getBalanceScore < getBalancePoint
-                        ? getBalanceScore +
+                    {getBalanceScore() < getBalancePoint()
+                        ? getBalanceScore() +
                           "/" +
-                          getBalancePoint +
-                          "Balanced ✓ \n"
-                        : getBalanceScore +
+                          getBalancePoint() +
+                          "\nBalanced ✓"
+                        : getBalanceScore() +
                           "/" +
-                          getBalancePoint +
-                          "Not Balanced ✗"}
+                          getBalancePoint() +
+                          "\nNot Balanced ✗"}
                 </td>
+                {currentDie.rollTotals.map((num, index) => (
+                    <td key={currentDie.id + index}>
+                        <Button onClick={() => addRoll(index)}>{num}</Button>
+                    </td>
+                ))}
             </tr>
         </table>
     );

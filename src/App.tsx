@@ -13,7 +13,6 @@ let data: DiceSet[] | (() => DiceSet[]) = [
             {
                 id: "0",
                 sides: 20,
-                balanced: true,
                 rollTotals: [
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
                 ]
@@ -21,37 +20,31 @@ let data: DiceSet[] | (() => DiceSet[]) = [
             {
                 id: "1",
                 sides: 12,
-                balanced: true,
                 rollTotals: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             },
             {
                 id: "2",
                 sides: 10,
-                balanced: true,
                 rollTotals: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             },
             {
                 id: "3",
                 sides: 10,
-                balanced: true,
                 rollTotals: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             },
             {
                 id: "4",
                 sides: 8,
-                balanced: true,
                 rollTotals: [0, 0, 0, 0, 0, 0, 0, 0]
             },
             {
                 id: "5",
                 sides: 6,
-                balanced: true,
                 rollTotals: [0, 0, 0, 0, 0, 0]
             },
             {
                 id: "6",
                 sides: 4,
-                balanced: true,
                 rollTotals: [0, 0, 0, 0]
             }
         ],
