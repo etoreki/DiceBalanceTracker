@@ -4,6 +4,6 @@ export interface DiceSet {
     id: string;
     name: string;
     dice: Die[];
-    primaryColor: number;
-    secondaryColor: number;
+    primaryColor: string;
+    secondaryColor: string;
 }

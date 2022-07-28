@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import "./App.css";
 import { makeId } from "./createId";
+import { DisplaySet } from "./DisplaySet";
 import { DiceSet } from "./Interfaces/diceSet";
 
 let data: DiceSet[] | (() => DiceSet[]) = [
@@ -54,8 +55,8 @@ let data: DiceSet[] | (() => DiceSet[]) = [
                 rollTotals: [0, 0, 0, 0]
             }
         ],
-        primaryColor: 0xfff,
-        secondaryColor: 0x000
+        primaryColor: "#fff",
+        secondaryColor: "#000"
     }
 ];
 const saveDataKey = "DICE-BALANCE-TRACKER-DATA";
@@ -73,8 +74,8 @@ function App(): JSX.Element {
             id: makeId(),
             name: "New Set",
             dice: [],
-            primaryColor: 0xfff,
-            secondaryColor: 0x000
+            primaryColor: "#fff",
+            secondaryColor: "#000"
         };
         setDiceSets([...diceSets, newSet]);
     }
@@ -86,7 +87,12 @@ function App(): JSX.Element {
                 die is balanced.
             </p>
             {diceSets.map((diceSet: DiceSet) => (
-                <DisplaySet></DisplaySet>
+                <DisplaySet
+                    key={diceSet.id}
+                    diceSets={diceSets}
+                    setDiceSets={setDiceSets}
+                    currentSet={diceSet}
+                ></DisplaySet>
             ))}
             <Button className="addSetBtn" onClick={() => addDiceSet()}>
                 New Set
