@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { Button } from "react-bootstrap";
 import "./App.css";
+import { makeId } from "./createId";
 import { DiceSet } from "./Interfaces/diceSet";
 
 let data: DiceSet[] | (() => DiceSet[]) = [
@@ -51,7 +53,9 @@ let data: DiceSet[] | (() => DiceSet[]) = [
                 balanced: true,
                 rollTotals: [0, 0, 0, 0]
             }
-        ]
+        ],
+        primaryColor: 0xfff,
+        secondaryColor: 0x000
     }
 ];
 const saveDataKey = "DICE-BALANCE-TRACKER-DATA";
@@ -65,7 +69,7 @@ if (previousData !== null) {
 function App(): JSX.Element {
     const [diceSets, setDiceSets] = useState<DiceSet[]>(data);
     function addDiceSet() {
-        const newSet = { id: mak };
+        const newSet = { id: makeId() };
     }
     return (
         <div className="App">
