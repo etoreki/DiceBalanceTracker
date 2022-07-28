@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import "./App.css";
 import { makeId } from "./createId";
+import { DisplaySet } from "./DisplaySet";
 import { DiceSet } from "./Interfaces/diceSet";
 
 let data: DiceSet[] | (() => DiceSet[]) = [
@@ -86,7 +87,12 @@ function App(): JSX.Element {
                 die is balanced.
             </p>
             {diceSets.map((diceSet: DiceSet) => (
-                <DisplaySet></DisplaySet>
+                <DisplaySet
+                    key={diceSet.id}
+                    diceSets={diceSets}
+                    setDiceSets={setDiceSets}
+                    currentSet={diceSet}
+                ></DisplaySet>
             ))}
             <Button className="addSetBtn" onClick={() => addDiceSet()}>
                 New Set
