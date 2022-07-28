@@ -64,7 +64,6 @@ export function DisplaySet({
     }
     return (
         <div>
-            <table className="Table-Header"></table>
             {edit ? (
                 <div>
                     <Form.Group className="dropdownWidth" controlId="setName">
