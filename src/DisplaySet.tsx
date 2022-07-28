@@ -1,7 +1,8 @@
 import { DiceSet } from "./Interfaces/diceSet";
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { ChromePicker } from "react-color";
+import { SketchPicker } from "react-color";
+import "./App.css";
 
 export function DisplaySet({
     diceSets,
@@ -14,7 +15,7 @@ export function DisplaySet({
 }): JSX.Element {
     const [edit, setEdit] = useState<boolean>(false);
     const [name, setName] = useState<string>(currentSet.name);
-    const [primColor, setPrimColor] = useState(currentSet.primaryColor);
+    const [primColor, setPrimColor] = useState<string>(currentSet.primaryColor);
     const [secondColor, setSecondColor] = useState<string>(
         currentSet.secondaryColor
     );
@@ -50,7 +51,18 @@ export function DisplaySet({
                         <Form.Label>Name of Dice Set: </Form.Label>
                         <Form.Control value={name} onChange={editName} />
                     </Form.Group>
-                    <ChromePicker color={primColor}></ChromePicker>
+                    <SketchPicker
+                        color={primColor}
+                        onChange={(updatedColor) =>
+                            setPrimColor(updatedColor.hex)
+                        }
+                    ></SketchPicker>
+                    <SketchPicker
+                        color={secondColor}
+                        onChange={(updatedColor) =>
+                            setSecondColor(updatedColor.hex)
+                        }
+                    ></SketchPicker>
                     <Button onClick={saveChanges}>Save Changes</Button>
                     <Button onClick={cancelChanges}>Cancel</Button>
                 </div>
