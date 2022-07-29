@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/DiceBalanceTracker/static/css/main.39f589df.css",
-    "main.js": "/DiceBalanceTracker/static/js/main.32d7cc3b.js",
+    "main.js": "/DiceBalanceTracker/static/js/main.e25881df.js",
     "static/js/787.4ef7427d.chunk.js": "/DiceBalanceTracker/static/js/787.4ef7427d.chunk.js",
     "index.html": "/DiceBalanceTracker/index.html",
     "main.39f589df.css.map": "/DiceBalanceTracker/static/css/main.39f589df.css.map",
-    "main.32d7cc3b.js.map": "/DiceBalanceTracker/static/js/main.32d7cc3b.js.map",
+    "main.e25881df.js.map": "/DiceBalanceTracker/static/js/main.e25881df.js.map",
     "787.4ef7427d.chunk.js.map": "/DiceBalanceTracker/static/js/787.4ef7427d.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.39f589df.css",
-    "static/js/main.32d7cc3b.js"
+    "static/js/main.e25881df.js"
   ]
 }
