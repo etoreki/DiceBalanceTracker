@@ -50,6 +50,7 @@ export function DisplaySet({
     function addDie() {
         const newDie = {
             id: makeId(),
+            name: "D20",
             sides: 20,
             balanced: true,
             rollTotals: new Array(20).fill(0)

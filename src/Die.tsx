@@ -56,7 +56,7 @@ export function DisplayDie({
         <table>
             <tr>
                 <td>
-                    <strong>{"D" + currentDie.sides}</strong>
+                    <strong>{currentDie.name}</strong>
                 </td>
                 {currentDie.rollTotals.map((num, index) => (
                     <td key={currentDie.id + index}>
