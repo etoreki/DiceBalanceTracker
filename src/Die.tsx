@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { DiceSet } from "./Interfaces/diceSet";
 import { Die } from "./Interfaces/die";
 import criticalValues from "./Data/criticalValues.json";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Modal, ModalFooter } from "react-bootstrap";
 
 export function DisplayDie({
     diceSets,
@@ -18,6 +18,7 @@ export function DisplayDie({
     const [editting, isEditting] = useState<boolean>(false);
     const [editRolls, setEditRolls] = useState<number[]>(currentDie.rollTotals);
     const [name, setName] = useState<string>(currentDie.name);
+    const [delModal, toggleDelModal] = useState<boolean>(false);
     function getBalanceScore(): number {
         const totalRolls = currentDie.rollTotals.reduce(
             (sum: number, rolls: number) => sum + rolls,
@@ -31,6 +32,17 @@ export function DisplayDie({
             0
         );
         return rawBalance;
+    }
+    function deleteDie() {
+        const newDice = [...currentSet.dice];
+        newDice.splice(
+            newDice.findIndex((die: Die): boolean => die.id === currentDie.id),
+            1
+        );
+        const newDiceSets = diceSets.map((set: DiceSet) =>
+            set.id === currentSet.id ? { ...set, dice: newDice } : { ...set }
+        );
+        setDiceSets(newDiceSets);
     }
     function getBalancePoint(): number {
         const totalRolls = currentDie.rollTotals.reduce(
@@ -144,9 +156,48 @@ export function DisplayDie({
                             <Button onClick={() => cancelEdit()}>Cancel</Button>
                         </>
                     ) : (
-                        <Button onClick={() => isEditting(true)}>
-                            Edit Values
-                        </Button>
+                        <>
+                            <Button onClick={() => isEditting(true)}>
+                                Edit Values
+                            </Button>
+                            <Button onClick={() => toggleDelModal(true)}>
+                                Delete Die
+                            </Button>
+                            <Modal
+                                id="#delModal"
+                                show={delModal}
+                                animation={false}
+                                onRequestClose={() => toggleDelModal(false)}
+                                contentLabel="Deletion dialog"
+                            >
+                                <p>
+                                    This action will{" "}
+                                    <strong>permanetly delete</strong> the die.
+                                    Are you sure you wish to continue?
+                                </p>
+                                <ModalFooter>
+                                    <div>
+                                        <Button
+                                            className="btnDel"
+                                            type="submit"
+                                            onClick={deleteDie}
+                                        >
+                                            Confirm Delete
+                                        </Button>
+
+                                        <Button
+                                            className="btncancel"
+                                            type="button"
+                                            onClick={() =>
+                                                toggleDelModal(false)
+                                            }
+                                        >
+                                            Cancel
+                                        </Button>
+                                    </div>
+                                </ModalFooter>
+                            </Modal>
+                        </>
                     )}
                 </td>
             </tr>
