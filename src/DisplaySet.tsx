@@ -5,7 +5,7 @@ import { SketchPicker } from "react-color";
 import "./App.css";
 import { Die } from "./Interfaces/die";
 import { DisplayDie } from "./Die";
-import { makeId } from "./createId";
+import { AddDieModal } from "./AddDieModal";
 
 export function DisplaySet({
     diceSets,
@@ -25,8 +25,12 @@ export function DisplaySet({
     const [primChoose, setPrimChoose] = useState<boolean>(false);
     const [secondChoose, setSecondChoose] = useState<boolean>(false);
     const [delModal, toggleDelModal] = useState<boolean>(false);
+    const [addModal, toggleAddModal] = useState<boolean>(false);
     function editName(event: React.ChangeEvent<HTMLInputElement>) {
         setName(event.target.value);
+    }
+    function closeAddModal() {
+        toggleAddModal(false);
     }
     function saveChanges() {
         const newSet = {
@@ -48,14 +52,7 @@ export function DisplaySet({
         setSecondColor(currentSet.secondaryColor);
         setEdit(false);
     }
-    function addDie() {
-        const newDie = {
-            id: makeId(),
-            name: "D20",
-            sides: 20,
-            balanced: true,
-            rollTotals: new Array(20).fill(0)
-        };
+    function addDie(newDie: Die) {
         const newDiceSets = diceSets.map(
             (set: DiceSet): DiceSet =>
                 set.id === currentSet.id
@@ -181,7 +178,12 @@ export function DisplaySet({
                     currentDie={die}
                 ></DisplayDie>
             ))}
-            <Button onClick={addDie}>Add Die</Button>
+            <Button onClick={() => toggleAddModal(true)}>Add Die</Button>
+            <AddDieModal
+                show={addModal}
+                closeModal={closeAddModal}
+                addDie={addDie}
+            ></AddDieModal>
         </div>
     );
 }

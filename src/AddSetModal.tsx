@@ -85,6 +85,13 @@ export function AddSetModal({
             secondaryColor: secondColor
         };
         addDiceSet(newSet);
+        setDice("Custom");
+        setDiceInSet([]);
+        setName("");
+        setPrimChoose(false);
+        setSecondChoose(false);
+        setPrimColor("#fff");
+        setSecondColor("#000");
         closeModal();
     }
     return (
