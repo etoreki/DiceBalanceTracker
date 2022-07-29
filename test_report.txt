@@ -24,7 +24,7 @@ Browserslist: caniuse-lite is outdated. Please run:
       at performUnitOfWork (node_modules/react-dom/cjs/react-dom.development.js:22787:5)
 
 FAIL src/App.test.tsx
-  ✕ renders the course name somewhere (221 ms)
+  ✕ renders the course name somewhere (224 ms)
 
   ● renders the course name somewhere
 
@@ -268,21 +268,23 @@ FAIL src/App.test.tsx
       at _run10000 (node_modules/@jest/core/build/cli/index.js:320:7)
       at runCLI (node_modules/@jest/core/build/cli/index.js:173:3)
 
------------------|---------|----------|---------|---------|---------------------------------
-File             | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s               
------------------|---------|----------|---------|---------|---------------------------------
-All files        |   30.47 |    18.75 |   23.63 |   30.76 |                                 
- src             |   30.47 |    18.75 |   23.63 |   30.76 |                                 
-  App.tsx        |   63.63 |       50 |      50 |   63.63 | 67,73-80,97                     
-  Die.tsx        |      32 |       20 |      30 |      32 | 37-45,58-91,100,134-138,153-192 
-  DisplaySet.tsx |   24.32 |       10 |      10 |   24.32 | 29-75,89-163                    
-  createId.ts    |       0 |      100 |       0 |       0 | 2-11                            
- src/Interfaces  |       0 |        0 |       0 |       0 |                                 
-  diceSet.ts     |       0 |        0 |       0 |       0 |                                 
-  die.ts         |       0 |        0 |       0 |       0 |                                 
------------------|---------|----------|---------|---------|---------------------------------
+------------------|---------|----------|---------|---------|---------------------------------
+File              | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s               
+------------------|---------|----------|---------|---------|---------------------------------
+All files         |    30.4 |     23.8 |   20.83 |   30.61 |                                 
+ src              |    30.4 |     23.8 |   20.83 |   30.61 |                                 
+  AddDieModal.tsx |      30 |       50 |      25 |      30 | 18-27,39-48                     
+  AddSetModal.tsx |   26.66 |    33.33 |      10 |   26.66 | 25-95,107-155                   
+  App.tsx         |   66.66 |       50 |      40 |   66.66 | 67,74-77,94                     
+  Die.tsx         |      32 |       20 |      30 |      32 | 37-45,58-91,100,134-138,153-192 
+  DisplaySet.tsx  |   25.64 |       10 |    9.09 |   25.64 | 30-72,86-160,181                
+  createId.ts     |       0 |      100 |       0 |       0 | 2-11                            
+ src/Interfaces   |       0 |        0 |       0 |       0 |                                 
+  diceSet.ts      |       0 |        0 |       0 |       0 |                                 
+  die.ts          |       0 |        0 |       0 |       0 |                                 
+------------------|---------|----------|---------|---------|---------------------------------
 Test Suites: 1 failed, 1 total
 Tests:       1 failed, 1 total
 Snapshots:   0 total
-Time:        2.796 s
+Time:        2.756 s
 Ran all test suites.
