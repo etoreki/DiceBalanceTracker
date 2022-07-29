@@ -70,11 +70,15 @@ if (previousData !== null) {
 function App(): JSX.Element {
     const [diceSets, setDiceSets] = useState<DiceSet[]>(data);
     const [addModal, toggleAddModal] = useState<boolean>(false);
+    saveData();
     function addDiceSet(newSet: DiceSet) {
         setDiceSets([...diceSets, newSet]);
     }
     function closeModal() {
         toggleAddModal(false);
+    }
+    function saveData() {
+        localStorage.setItem(saveDataKey, JSON.stringify(diceSets));
     }
     return (
         <div className="App">
