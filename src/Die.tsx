@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { DiceSet } from "./Interfaces/diceSet";
 import { Die } from "./Interfaces/die";
 import criticalValues from "./Data/criticalValues.json";
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 
 export function DisplayDie({
     diceSets,
@@ -15,6 +15,9 @@ export function DisplayDie({
     currentSet: DiceSet;
     currentDie: Die;
 }): JSX.Element {
+    const [editting, isEditting] = useState<boolean>(false);
+    const [editRolls, setEditRolls] = useState<number[]>(currentDie.rollTotals);
+    const [name, setName] = useState<string>(currentDie.name);
     function getBalanceScore(): number {
         const totalRolls = currentDie.rollTotals.reduce(
             (sum: number, rolls: number) => sum + rolls,
@@ -52,11 +55,41 @@ export function DisplayDie({
         );
         setDiceSets(newDiceSets);
     }
+    function updateRolls(newValue: string, index: number) {
+        const newRolls = editRolls.map((num, index2) =>
+            index === index2 ? parseInt(newValue) : num
+        );
+        setEditRolls(newRolls);
+    }
+    function saveChanges() {
+        const newDice = currentSet.dice.map((die: Die) =>
+            die.id === currentDie.id
+                ? { ...die, rollTotals: editRolls, name: name }
+                : { ...die }
+        );
+        const newDiceSets = diceSets.map((set: DiceSet) =>
+            set.id === currentSet.id ? { ...set, dice: newDice } : { ...set }
+        );
+        setDiceSets(newDiceSets);
+        isEditting(false);
+    }
+    function cancelEdit() {
+        setEditRolls(currentDie.rollTotals);
+        setName(currentDie.name);
+        isEditting(false);
+    }
     return (
         <table>
             <tr>
                 <td>
-                    <strong>{currentDie.name}</strong>
+                    {editting ? (
+                        <Form.Control
+                            value={name}
+                            onChange={(event) => setName(event.target.value)}
+                        />
+                    ) : (
+                        <strong>{currentDie.name}</strong>
+                    )}
                 </td>
                 {currentDie.rollTotals.map((num, index) => (
                     <td key={currentDie.id + index}>
@@ -81,13 +114,39 @@ export function DisplayDie({
                 </td>
                 {currentDie.rollTotals.map((num, index) => (
                     <td key={currentDie.id + index}>
-                        <Button onClick={() => addRoll(index)}>{num}</Button>
+                        {editting ? (
+                            <Form.Control
+                                type="number"
+                                value={editRolls[index]}
+                                onChange={(event) =>
+                                    updateRolls(event.target.value, index)
+                                }
+                            />
+                        ) : (
+                            <Button onClick={() => addRoll(index)}>
+                                {num}
+                            </Button>
+                        )}
                     </td>
                 ))}
                 <td>
                     {currentDie.rollTotals.reduce(
                         (sum: number, rolls: number) => sum + rolls,
                         0
+                    )}
+                </td>
+                <td>
+                    {editting ? (
+                        <>
+                            <Button onClick={() => saveChanges()}>
+                                Save Changes
+                            </Button>
+                            <Button onClick={() => cancelEdit()}>Cancel</Button>
+                        </>
+                    ) : (
+                        <Button onClick={() => isEditting(true)}>
+                            Edit Values
+                        </Button>
                     )}
                 </td>
             </tr>
