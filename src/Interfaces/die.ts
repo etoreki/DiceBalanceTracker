@@ -1,6 +1,6 @@
 export interface Die {
     id: string;
+    name: string;
     sides: number;
-    balanced: boolean;
     rollTotals: number[];
 }

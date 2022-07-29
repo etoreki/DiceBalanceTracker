@@ -50,6 +50,7 @@ export function DisplaySet({
     function addDie() {
         const newDie = {
             id: makeId(),
+            name: "D20",
             sides: 20,
             balanced: true,
             rollTotals: new Array(20).fill(0)
@@ -64,7 +65,6 @@ export function DisplaySet({
     }
     return (
         <div>
-            <table className="Table-Header"></table>
             {edit ? (
                 <div>
                     <Form.Group className="dropdownWidth" controlId="setName">
