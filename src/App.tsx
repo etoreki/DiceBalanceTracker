@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
+import { AddSetModal } from "./AddSetModal";
 import "./App.css";
-import { makeId } from "./createId";
 import { DisplaySet } from "./DisplaySet";
 import { DiceSet } from "./Interfaces/diceSet";
 
@@ -69,15 +69,12 @@ if (previousData !== null) {
 
 function App(): JSX.Element {
     const [diceSets, setDiceSets] = useState<DiceSet[]>(data);
-    function addDiceSet() {
-        const newSet = {
-            id: makeId(),
-            name: "New Set",
-            dice: [],
-            primaryColor: "#fff",
-            secondaryColor: "#000"
-        };
+    const [addModal, toggleAddModal] = useState<boolean>(false);
+    function addDiceSet(newSet: DiceSet) {
         setDiceSets([...diceSets, newSet]);
+    }
+    function closeModal() {
+        toggleAddModal(false);
     }
     return (
         <div className="App">
@@ -94,9 +91,14 @@ function App(): JSX.Element {
                     currentSet={diceSet}
                 ></DisplaySet>
             ))}
-            <Button className="addSetBtn" onClick={() => addDiceSet()}>
-                New Set
+            <Button className="addSetBtn" onClick={() => toggleAddModal(true)}>
+                Create New Set
             </Button>
+            <AddSetModal
+                show={addModal}
+                closeModal={closeModal}
+                addDiceSet={addDiceSet}
+            ></AddSetModal>
         </div>
     );
 }
