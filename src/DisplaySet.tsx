@@ -1,6 +1,6 @@
 import { DiceSet } from "./Interfaces/diceSet";
 import React, { useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Modal, ModalFooter } from "react-bootstrap";
 import { SketchPicker } from "react-color";
 import "./App.css";
 import { Die } from "./Interfaces/die";
@@ -24,6 +24,7 @@ export function DisplaySet({
     );
     const [primChoose, setPrimChoose] = useState<boolean>(false);
     const [secondChoose, setSecondChoose] = useState<boolean>(false);
+    const [delModal, toggleDelModal] = useState<boolean>(false);
     function editName(event: React.ChangeEvent<HTMLInputElement>) {
         setName(event.target.value);
     }
@@ -62,6 +63,16 @@ export function DisplaySet({
                     : { ...set }
         );
         setDiceSets(newDiceSets);
+    }
+    function deleteSet() {
+        const newSets = [...diceSets];
+        newSets.splice(
+            newSets.findIndex(
+                (set: DiceSet): boolean => currentSet.id === set.id
+            ),
+            1
+        );
+        setDiceSets(newSets);
     }
     return (
         <div>
@@ -107,6 +118,41 @@ export function DisplaySet({
                     </Form.Group>
                     <Button onClick={saveChanges}>Save Changes</Button>
                     <Button onClick={cancelChanges}>Cancel</Button>
+                    <Button onClick={() => toggleDelModal(true)}>
+                        Delete Set
+                    </Button>
+                    <Modal
+                        id="#delModal"
+                        show={delModal}
+                        animation={false}
+                        onRequestClose={() => toggleDelModal(false)}
+                        contentLabel="Deletion dialog"
+                    >
+                        <p>
+                            This action will <strong>permanetly delete</strong>{" "}
+                            the <strong>entire set</strong>. Are you sure you
+                            wish to continue?
+                        </p>
+                        <ModalFooter>
+                            <div>
+                                <Button
+                                    className="btnDel"
+                                    type="submit"
+                                    onClick={deleteSet}
+                                >
+                                    Confirm Delete
+                                </Button>
+
+                                <Button
+                                    className="btncancel"
+                                    type="button"
+                                    onClick={() => toggleDelModal(false)}
+                                >
+                                    Cancel
+                                </Button>
+                            </div>
+                        </ModalFooter>
+                    </Modal>
                 </div>
             ) : (
                 <div>
