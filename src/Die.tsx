@@ -57,6 +57,7 @@ export function DisplayDie({
     function addRoll(index: number) {
         const newRollTotals = [...currentDie.rollTotals];
         newRollTotals[index] = newRollTotals[index] + 1;
+        setEditRolls(newRollTotals);
         const newDice = currentSet.dice.map((die: Die) =>
             die.id === currentDie.id
                 ? { ...die, rollTotals: newRollTotals }
